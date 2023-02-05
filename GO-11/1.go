@@ -20,10 +20,10 @@ type Config struct {
 }
 
 func main() {
-	fmt.Println(read("config.yaml"))
+	fmt.Println(Read("config.yaml"))
 }
 
-func read(yaml string) (config Config, err error) {
+func Read(yaml string) (config Config, err error) {
 	rawData, err := ioutil.ReadFile(yaml)
 	var data Config
 
@@ -31,14 +31,14 @@ func read(yaml string) (config Config, err error) {
 		return data, err
 	}
 
-	if err := data.ParseAndValidate(rawData); err != nil {
+	if err := data.parseAndValidate(rawData); err != nil {
 		return data, err
 	} else {
 		return data, err
 	}
 }
 
-func (output *Config) ParseAndValidate(data []byte) error {
+func (output *Config) parseAndValidate(data []byte) error {
 	if err := yaml.Unmarshal(data, output); err != nil {
 		return err
 	}
